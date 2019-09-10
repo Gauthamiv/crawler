@@ -35,20 +35,20 @@ defmodule Crawler.Fetcher.UrlFilter do
   #end
   def print_multiple_times(n,opts,url) when n <= 0 do
     if  String.starts_with?(url,value2(Enum.at(value1(String.split(opts.allowpaths,",")),n-1))) do
-      IO.puts "true in print func"
+      #IO.puts "true in print func"
     true
     else
-      IO.puts "false in print func11"
+     # IO.puts "false in print func11"
       false
     end
  end
 
  def print_multiple_times(n,opts,url) do
     if String.starts_with?(url,value2(Enum.at(value1(String.split(opts.allowpaths,",")),n-1))) do
-      IO.puts "true in print func"  
+      #IO.puts "true in print func"  
     true
       else
-        IO.puts "false in print func22"
+        #IO.puts "false in print func22"
        print_multiple_times(n - 1,opts,url)
     end
  end
@@ -61,12 +61,17 @@ defmodule Crawler.Fetcher.UrlFilter do
     x
   end
   def filter(url, opts) do
-    IO.puts "inside filter func"
+    
+    #IO.puts "inside filter func"
     if print_multiple_times(Kernel.length(value1(String.split(opts.allowpaths,","))),opts,url) do
-      IO.puts "condition is true inside filter returing true"
+     # IO.puts "condition is true inside filter returing true"
+     IO.puts "yes " <> url
+     Crawler.Options.indexingfunc(opts,url)
     {:ok, true}
     else 
-      IO.puts "condition is false inside filter returingin false"
+      IO.puts "no " <> url
+      #Crawler.Options.indexingfunc(opts,url)
+     # IO.puts "condition is false inside filter returingin false"
     {:ok, false}
     end
   end

@@ -15,6 +15,7 @@ defmodule Crawler.Worker do
   Runs the worker that casts data to itself to kick off the crawl workflow.
   """
   def run(opts) do
+   # IO.puts "in worker"
     {:ok, pid} = GenServer.start_link(__MODULE__, opts)
 
     GenServer.cast(pid, opts)

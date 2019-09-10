@@ -12,7 +12,7 @@ defmodule Crawler.QueueHandler do
   so that consumer apps don't have to manually handle the queue initialisation.
   """
   def enqueue(opts) do
-    opts = init_queue(opts[:queue], opts)
+   opts = init_queue(opts[:queue], opts)
 
     OPQ.enqueue(opts[:queue], opts)
 

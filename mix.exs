@@ -37,6 +37,8 @@ defmodule Crawler.Mixfile do
       {:dialyxir,    "~> 0.5",   only: [:dev, :test], runtime: false},
       {:bypass,      "~> 1.0",   only: :test},
       {:excoveralls, "~> 0.7",   only: :test},
+      {:poison, "~> 3.1"},
+      {:tesla, "~> 1.2.0"},
     ]
   end
 

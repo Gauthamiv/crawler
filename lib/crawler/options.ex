@@ -98,7 +98,36 @@ defmodule Crawler.Options do
   # indexingfunc(opts,url)
     Map.merge(opts, %{url: url})
   end
-  
+  def getdescrip(description) do
+    if description == "" do
+        body = "meta"
+      IO.puts "returning meta"
+      body
+    else
+      IO.puts "retruing " <> description
+      description
+    end
+  end
+  def getContent(contentType) do
+    map = %{'audio/aac' => {"aac"}, 'text/html' => {"htm", "html"}, 'application/x-abiword' => {"abw"}, 'video/x-msvideo' => {"avi"}, 'application/vnd.amazon.ebook' => {"azw"}, 'application/octet-stream' => {"bin", "arc"}, 'image/bmp' => {"bmp"}, 'application/x-bzip' => {"bz"}, 'application/x-bzip2' => {"bz2"}, 'application/x-csh' => {"csh"}, 'text/css' => {"css"}, 'text/csv' => {"csv"}, 'application/msword' => {"doc"}, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => {"docx"}, 'application/vnd.ms-fontobject' => {"eot"}, 'application/epub+zip' => {"epub"}, 'application/ecmascript' => {"es"}, 'image/gif' => {"gif"}, 'image/x-icon' => {"ico"}, 'text/calendar' => {"ics"}, 'application/java-archive' => {"jar"}, 'image/jpeg' => {"jpeg", "jpg"}, 'application/javascript' => {"js"}, 'application/json' => {"json"}, 'audio/midi' => {"mid", "midi"}, 'audio/x-midi' => {"mid", "midi"}, 'video/mpeg' => {"mpeg"}, 'application/vnd.apple.installer+xml' => {"mpkg"}, 'application/vnd.oasis.opendocument.presentation' => {"odp"}, 'application/vnd.oasis.opendocument.spreadsheet' => {"ods"}, 'application/vnd.oasis.opendocument.text' => {"odt"}, 'audio/ogg' => {"oga"}, 'video/ogg' => {"ogv"}, 'application/ogg' => {"ogx"}, 'font/otf' => {"otf"}, 'image/png' => {"png"}, 'application/pdf' => {"pdf"}, 'application/vnd.ms-powerpoint' => {"ppt"}, 'application/vnd.openxmlformats-officedocument.presentationml.presentation' => {"pptx"}, 'application/x-rar-compressed' => {"rar"}, 'application/rtf' => {"rtf"}, 'application/x-sh' => {"sh"}, 'image/svg+xml' => {"svg"}, 'application/x-shockwave-flash' => {"swf"}, 'application/x-tar' => {"tar"}, 'image/tiff' => {"tif", "tiff"}, 'application/typescript' => {"ts"}, 'font/ttf' => {"ttf"}, 'text/plain' => {"txt"}, 'application/vnd.visio' => {"vsd"}, 'audios/wav' => {"wav"}, 'audio/webm' => {"weba"}, 'video/webm' => {"webm"}, 'image/webp' => {"webp"}, 'font/woff' => {"woff"}, 'font/woff2' => {"woff2"}, 'application/xhtml+xml' => {"xhtml"}, 'application/vnd.ms-excel' => {"xls"}, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => {"xlsx"}, 'application/xml' => {"xml"}, 'application/vnd.mozilla.xul+xml' => {"xul"}, 'application/zip' => {"zip"}, 'video/3gpp' => {"3gp"}, 'video/3gpp2' => {"3g2"}, 'audio/3gpp' => {"3gp"}, 'audio/3gpp2' => {"3g2"}, 'application/x-7z-compressed' => {"7z"}, 'application/x-gzip' => {"gz"}, 'message/rfc822' => {"eml"}, 'application/vnd.ms-word.document.macroenabled.12' => {"docm"}, 'application/vnd.ms-word.template.macroenabled.12' => {"dotm"}, 'application/vnd.openxmlformats-officedocument.wordprocessingml.template' => {"dotx"}, 'application/vnd.ms-powerpoint.template.macroenabled.12' => {"potm"}, 'application/vnd.openxmlformats-officedocument.presentationml.template' => {"potx"}, 'application/vnd.ms-powerpoint.addin.macroenabled.12' => {"ppam"}, 'application/vnd.ms-powerpoint.slideshow.macroenabled.12' => {"ppsm"}, 'application/vnd.openxmlformats-officedocument.presentationml.slideshow' => {"ppsx"}, 'application/vnd.ms-powerpoint.presentation.macroenabled.12' => {"pptm"}, 'application/vnd.ms-excel.addin.macroenabled.12' => {"xlam"}, 'application/vnd.ms-excel.sheet.binary.macroenabled.12' => {"xlsb"}, 'application/vnd.ms-excel.sheet.macroenabled.12' => {"xlsm"}, 'application/vnd.ms-excel.template.macroenabled.12' => {"xltm"}, 'application/vnd.ms-xpsdocument' => {"xps"}, 'image/vnd.dwg' => {"dwg"}, 'video/mp4' => {"mp4"}, 'audio/mpeg' => {"mp3"}, 'audio/x-aiff' => {"aiff"}, 'video/x-flv'=> {"flv"}, 'application/vnd.wordperfect' => {"wpd"}, 'image/vnd.adobe.photoshop' => {"psd"}, 'audio/x-wav' => {"wav"}}
+    cont = Enum.at(value1(String.split("#{contentType}",";")),0)
+    IO.puts cont
+    a = map['#{cont}']
+    si = tuple_size(a)
+    if si >= 2 do
+    elem(a,1)
+    else 
+      elem(a,0)
+    end
+  end
+  @spec value1(list) :: list
+  def value1(x) do
+    x
+  end
+  @spec value2(String.t()) :: String.t()
+  def value2(x) do
+    x
+  end
   def indexingfunc(opts,url) do
     Application.ensure_all_started(:inets)
 
@@ -108,12 +137,15 @@ defmodule Crawler.Options do
  # IO.puts "Url is2 "
   
  
-  {:ok, {{'HTTP/1.1', 200, 'OK'}, _headers, _body1}} = :httpc.request(:get, {'#{url}', []}, [], [])
+  {:ok, {{'HTTP/1.1', 200, 'OK'}, headers, _body1}} = :httpc.request(:get, {'#{url}', []}, [], [])
   #IO.puts "getting the url content type and last modified date"
 #IO.puts body1
 #IO.puts "header contenttype is"
-#################contentType = getContentType(headers,0)
-#lastmodified = getLastmodified(headers,0)
+if headers != nil do
+contentType = getContentType(headers,0)
+lastmodified = getLastmodified(headers,0)
+cont = getContent(contentType)
+IO.puts cont <> "in index func"
 #IO.puts contentType
 #IO.puts lastmodified
 #userAgent = opts.user_agent
@@ -123,7 +155,9 @@ type = 'application/json'
   #body = "{\"name\":\"foo.example.com\"}"
   #body = "{\"customerId\":\"" <> customerId <> "\",\"collectionNames\":[\"" <> colname <> "\"],\"config\":{}}"
   #body = "{\"customerID\":\"" <> opts.customerId <> "\",\"url\":\"" <> url <> "\",\"useragent\":\"searchblox\",\"description\":" <> opts.descrip <> "}"
-  body = "{\"customerID\":\"" <> opts.customerId <> "\",\"url\":\"" <> url <> "\",\"useragent\":\"" <> opts.user_agent <> "\",\"description\":\"meta\"}"
+  descrip = getdescrip(opts.descrip)
+  IO.puts "descrip is" <> descrip
+  body = "{\"customerID\":\"" <> opts.customerId <> "\",\"url\":\"" <> url <> "\",\"useragent\":\"" <> opts.user_agent <> "\",\"description\":\"" <> descrip <> "\",\"type\":\"" <> cont <> "\"}"
   #body = "username=" <> authUsr <> "&password=" <> authPwd <> "&rememberMe=true"
   hTTPOptions = []
   options = []
@@ -142,9 +176,12 @@ type = 'application/json'
   c1 = String.replace(content1,"\n","\\n")
   #IO.puts c1
   #content = "Twitter. It's what's happening.We've detected that JavaScript is disabled in your browser. Would you like to proceed to legacy"
-  #keyword = json2["keyword"]
-  keyword = "breaking news, news online, U.S. news, world news, developing story, news video, CNN news, weather, business, money, politics, law, technology, entertainment, education, travel, health, special reports, autos, CNN TV"
-  #size = json2["size"]
+  keyword = json2["keyword"]
+  #t1 = :calendar.local_time()
+  #keyword = String.replace(keyword1,"\n","\\n")
+  #keyword = "breaking news, news online, U.S. news, world news, developing story, news video, CNN news, weather, business, money, politics, law, technology, entertainment, education, travel, health, special reports, autos, CNN TV"
+  size = json2["size"]
+  size1 = "#{size}"
   description = json2["description"]
   canonicalTags = json2["canonicalTags"]
   #category = json2["category"]
@@ -166,7 +203,21 @@ type = 'application/json'
   #"\",\"category\":\"" <> category <>  
   #"\",\"size\":\"" <> size <> 
   #"\",\"meta\":" <> meta <> 
-  bodynew = "{\"customerId\":\"" <> opts.customerId <> "\",\"url\":\"" <> url <> "\",\"userId\":201,\"collectionName\":\"" <> opts.collectionName <> "\",\"contenttype\":\"HTML\",\"content\":\"" <> c1 <> "\",\"title\":\"" <> title <> "\",\"language\":\"en\",\"description\":\"" <> description <> "\",\"keywords\":\"" <> keyword <> "\",\"uid\":\"" <> url <> "\",\"canonicalTags\":\"" <> canonicalTags <> "\"}"
+  IO.puts cont
+  #IO.puts t1
+  IO.puts keyword
+  IO.puts size1
+  IO.puts c1
+  IO.puts title
+  IO.puts description
+  IO.puts canonicalTags
+  #,\"indexdate\":\"" <> "#{t1}" <> "\",\"creationdate\":\"" <> t1 <> "\"
+bodynew1 = "{\"customerId\":\"" <> opts.customerId <> "\",\"url\":\"" <> url <> "\",\"userId\":" <> "#{opts.userId}" <> ",\"collectionName\":\"" <> opts.collectionName <> "\",\"contenttype\":\"" <> cont <> "\",\"title\":\"" <> title <> "\",\"language\":\"en\",\"uid\":\"" <> url <> "\",\"size\":\"" <> size1 <> "\"}"
+bodynew2 = checkkeyword(keyword,bodynew1)
+bodynew3 = checklastmodified(lastmodified,bodynew2)
+bodynew4 = checkdescription(description,bodynew3)
+bodynew5 = checkcanonicaltags(canonicalTags,bodynew4)
+bodynew = checkcontent(c1,bodynew5)
   #body = "username=" <> authUsr <> "&password=" <> authPwd <> "&rememberMe=true"
   #IO.puts bodynew
 
@@ -177,6 +228,7 @@ type = 'application/json'
  #IO.puts body3
  #IO.puts url
   end
+end
   def getContentType(headers,n) do
  #   IO.puts "in get"
   #  IO.puts n
@@ -189,10 +241,57 @@ type = 'application/json'
       getContentType(headers,n+1)
   end
 end
+def checklastmodified(lastmodified,bodynew1) do
+  if lastmodified == "" do
+    bodynew1
+  else
+bodynew = String.replace(bodynew1,"}",",\"lastmodified\":\"" <> "#{lastmodified}" <> "\"}")
+bodynew
+end
+
+end
+def checkdescription(description,bodynew1) do
+  if description == "" do
+    bodynew1
+  else
+bodynew = String.replace(bodynew1,"}",",\"description\":\"" <> description <> "\"}")
+bodynew
+end
+
+end
+def checkcanonicaltags(canonicaltags,bodynew1) do
+  if canonicaltags == nil do
+    bodynew1
+  else
+bodynew = String.replace(bodynew1,"}",",\"canonicalTags\":\"" <> canonicaltags <> "\"}")
+bodynew
+end
+end
+def checkcontent(content,bodynew1) do
+  if content == "" do
+    bodynew1
+  else
+bodynew = String.replace(bodynew1,"}",",\"content\":\"" <> content <> "\"}")
+bodynew
+end
+
+end
+def checkkeyword(keyword,bodynew1) do
+  if keyword == nil do
+    IO.puts "in if"
+    bodynew1
+  else
+    IO.puts keyword <> "in else"
+bodynew = String.replace(bodynew1,"}",",\"keywords\":\"" <> keyword <> "\"}")
+bodynew
+end
+
+end
 def getLastmodified(headers,n) do
-  #IO.puts "in get last"
-  #IO.puts n
-  #IO.puts elem(Enum.at(headers,n),0)
+  IO.puts "in get last"
+  IO.puts n
+  IO.puts elem(Enum.at(headers,n),0)
+  if n < 9 do
   if elem(Enum.at(headers,n),0) == 'last-modified' do
    # IO.puts "trueeeeeeeeeeee"
   contentType = elem(Enum.at(headers,n),1)
@@ -201,6 +300,8 @@ def getLastmodified(headers,n) do
     getLastmodified(headers,n+1)
 end
 end
+end
+
   defp assets,     do: Application.get_env(:crawler, :assets,     @assets)
   defp save_to,    do: Application.get_env(:crawler, :save_to,    @save_to)
   defp workers,    do: Application.get_env(:crawler, :workers,    @workers)

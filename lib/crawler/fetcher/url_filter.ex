@@ -63,7 +63,9 @@ defmodule Crawler.Fetcher.UrlFilter do
   def filter(url, opts) do
     
     #IO.puts "inside filter func"
-    if print_multiple_times(Kernel.length(value1(String.split(opts.allowpaths,","))),opts,url) do
+    a = String.replace(opts.allowpaths,"[","")
+    b = String.replace(a,"]","")
+    if print_multiple_times(Kernel.length(value1(String.split(b,","))),opts,url) do
      # IO.puts "condition is true inside filter returing true"
      IO.puts "yes " <> url
      Crawler.Options.indexingfunc(opts,url)

@@ -227,7 +227,7 @@ bodynew = checkcontent(c1,bodynew5)
   
   {:ok, {{'HTTP/1.1',_returnCode, _state}, _headers3, _body3}}= :httpc.request(:post, {'http://35.190.153.15:9000/indexmanager/api/v1/collection/index/doc/add', [{'Authorization', authcode}], type, bodynew}, hTTPOptions, options)
   #IO.puts returnCode
- #IO.puts body3
+ IO.puts body3
  #IO.puts url
   end
 end

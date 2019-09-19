@@ -2,7 +2,6 @@ defmodule Crawler.Options do
   @moduledoc """
   Options for the crawler.
   """
-
   alias Crawler.Mixfile
 
   @assets     []
@@ -131,6 +130,7 @@ defmodule Crawler.Options do
     x
   end
   def indexingfunc(opts,url) do
+    IO.puts "start processing url " <> url
     Application.ensure_all_started(:inets)
 
     # We should start `ssl` application also,
@@ -174,9 +174,18 @@ type = 'application/json'
   title = json2["title"]
   content1 = json2["content"]
   #IO.puts "content1"
+  c2 = String.replace(content1,"\n","\\\\n")
+  #c3 = String.replace(c2,"(","")
+  #c4 = String.replace(c3,")","")
+  c1 = String.replace(c2,"\"","'")
+ #IO.puts c4
+  #c2 = String.replace(content1,"\"","\"")
+
+   
+  #IO.puts ~c(this is a string with "double" quotes, not 'single' ones)
   #IO.puts content1
-  c1 = String.replace(content1,"\n","\\n")
-  #IO.puts c1
+  #c1 = ~s(#{c4})
+ #c1 = String.replace(c2,"\n","\\\\n")
   #content = "Twitter. It's what's happening.We've detected that JavaScript is disabled in your browser. Would you like to proceed to legacy"
   keyword = json2["keyword"]
   #t1 = :calendar.local_time()
@@ -184,7 +193,8 @@ type = 'application/json'
   #keyword = "breaking news, news online, U.S. news, world news, developing story, news video, CNN news, weather, business, money, politics, law, technology, entertainment, education, travel, health, special reports, autos, CNN TV"
   size = json2["size"]
   size1 = "#{size}"
-  description = json2["description"]
+  description1 = json2["description"]
+  description = String.replace(description1,"\"","'")
   canonicalTags = json2["canonicalTags"]
   #category = json2["category"]
   #author = json2["author"]
@@ -209,7 +219,7 @@ type = 'application/json'
   #IO.puts t1
   IO.puts keyword
   IO.puts size1
-  IO.puts c1
+  #IO.puts '#{c1}'
   IO.puts title
   IO.puts description
   IO.puts canonicalTags
@@ -224,9 +234,11 @@ bodynew = checkcontent(c1,bodynew5)
   #IO.puts bodynew
 
   #{:ok, {{'HTTP/1.1', 200, 'OK'}, _headers3, body3}}= :httpc.request(:post, {'http://35.190.153.15:9000/indexmanager/api/v1/collection/index/doc/add', [{'Authorization', authcode}], type, bodynew}, hTTPOptions, options)
-  
-  {:ok, {{'HTTP/1.1',_returnCode, _state}, _headers3, _body3}}= :httpc.request(:post, {'http://35.190.153.15:9000/indexmanager/api/v1/collection/index/doc/add', [{'Authorization', authcode}], type, bodynew}, hTTPOptions, options)
-  #IO.puts returnCode
+  IO.puts "indexing url " <> url
+  #IO.puts bodynew
+  {:ok, {{'HTTP/1.1',returnCode, _state}, _headers3, body3}}= :httpc.request(:post, {'http://35.190.153.15:9000/indexmanager/api/v1/collection/index/doc/add', [{'Authorization', authcode}], type, bodynew}, hTTPOptions, options)
+  IO.puts returnCode
+ IO.puts url <> " indexed"
  IO.puts body3
  #IO.puts url
   end
@@ -293,7 +305,7 @@ def getLastmodified(headers,n) do
   IO.puts "in get last"
   IO.puts n
   IO.puts elem(Enum.at(headers,n),0)
-  if n < 9 do
+  if n < 8 do
   if elem(Enum.at(headers,n),0) == 'last-modified' do
    # IO.puts "trueeeeeeeeeeee"
   contentType = elem(Enum.at(headers,n),1)

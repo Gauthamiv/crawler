@@ -26,10 +26,10 @@ defmodule Crawler.Fetcher do
     case Requester.make(opts) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body, headers: headers}} ->
         fetch_url_200(body, headers, opts)
-      #{:ok, %HTTPoison.Response{status_code: status_code}} ->
-     ##   fetch_url_non_200(status_code, opts)
-     # {:error, %HTTPoison.Error{reason: reason}} ->
-     #   fetch_url_failed(reason, opts)
+      {:ok, %HTTPoison.Response{status_code: status_code}} ->
+        fetch_url_non_200(status_code, opts)
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        fetch_url_failed(reason, opts)
     end
   end
 

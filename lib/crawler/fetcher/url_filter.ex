@@ -66,7 +66,7 @@ defmodule Crawler.Fetcher.UrlFilter do
    if print_multiple_times(Kernel.length(value1(String.split("#{opts.allowpaths}",","))),opts,url) do
      # IO.puts "condition is true inside filter returing true"
      IO.puts "yes " <> url
-     Crawler.Options.indexingfunc(opts,url)
+     #Crawler.Options.indexingfunc(opts,url)
     {:ok, true}
     else 
       IO.puts "no " <> url

@@ -102,23 +102,30 @@ defmodule Crawler.Options do
   def getdescrip(description) do
     if description == "" do
         body = "meta"
-      IO.puts "returning meta"
       body
     else
-      IO.puts "retruing " <> description
       description
     end
   end
   def getContent(contentType) do
-    map = %{'audio/aac' => {"aac"}, 'text/html' => {"htm", "html"}, 'application/x-abiword' => {"abw"}, 'video/x-msvideo' => {"avi"}, 'application/vnd.amazon.ebook' => {"azw"}, 'application/octet-stream' => {"bin", "arc"}, 'image/bmp' => {"bmp"}, 'application/x-bzip' => {"bz"}, 'application/x-bzip2' => {"bz2"}, 'application/x-csh' => {"csh"}, 'text/css' => {"css"}, 'text/csv' => {"csv"}, 'application/msword' => {"doc"}, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => {"docx"}, 'application/vnd.ms-fontobject' => {"eot"}, 'application/epub+zip' => {"epub"}, 'application/ecmascript' => {"es"}, 'image/gif' => {"gif"}, 'image/x-icon' => {"ico"}, 'text/calendar' => {"ics"}, 'application/java-archive' => {"jar"}, 'image/jpeg' => {"jpeg", "jpg"}, 'application/javascript' => {"js"}, 'application/json' => {"json"}, 'audio/midi' => {"mid", "midi"}, 'audio/x-midi' => {"mid", "midi"}, 'video/mpeg' => {"mpeg"}, 'application/vnd.apple.installer+xml' => {"mpkg"}, 'application/vnd.oasis.opendocument.presentation' => {"odp"}, 'application/vnd.oasis.opendocument.spreadsheet' => {"ods"}, 'application/vnd.oasis.opendocument.text' => {"odt"}, 'audio/ogg' => {"oga"}, 'video/ogg' => {"ogv"}, 'application/ogg' => {"ogx"}, 'font/otf' => {"otf"}, 'image/png' => {"png"}, 'application/pdf' => {"pdf"}, 'application/vnd.ms-powerpoint' => {"ppt"}, 'application/vnd.openxmlformats-officedocument.presentationml.presentation' => {"pptx"}, 'application/x-rar-compressed' => {"rar"}, 'application/rtf' => {"rtf"}, 'application/x-sh' => {"sh"}, 'image/svg+xml' => {"svg"}, 'application/x-shockwave-flash' => {"swf"}, 'application/x-tar' => {"tar"}, 'image/tiff' => {"tif", "tiff"}, 'application/typescript' => {"ts"}, 'font/ttf' => {"ttf"}, 'text/plain' => {"txt"}, 'application/vnd.visio' => {"vsd"}, 'audios/wav' => {"wav"}, 'audio/webm' => {"weba"}, 'video/webm' => {"webm"}, 'image/webp' => {"webp"}, 'font/woff' => {"woff"}, 'font/woff2' => {"woff2"}, 'application/xhtml+xml' => {"xhtml"}, 'application/vnd.ms-excel' => {"xls"}, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => {"xlsx"}, 'application/xml' => {"xml"}, 'application/vnd.mozilla.xul+xml' => {"xul"}, 'application/zip' => {"zip"}, 'video/3gpp' => {"3gp"}, 'video/3gpp2' => {"3g2"}, 'audio/3gpp' => {"3gp"}, 'audio/3gpp2' => {"3g2"}, 'application/x-7z-compressed' => {"7z"}, 'application/x-gzip' => {"gz"}, 'message/rfc822' => {"eml"}, 'application/vnd.ms-word.document.macroenabled.12' => {"docm"}, 'application/vnd.ms-word.template.macroenabled.12' => {"dotm"}, 'application/vnd.openxmlformats-officedocument.wordprocessingml.template' => {"dotx"}, 'application/vnd.ms-powerpoint.template.macroenabled.12' => {"potm"}, 'application/vnd.openxmlformats-officedocument.presentationml.template' => {"potx"}, 'application/vnd.ms-powerpoint.addin.macroenabled.12' => {"ppam"}, 'application/vnd.ms-powerpoint.slideshow.macroenabled.12' => {"ppsm"}, 'application/vnd.openxmlformats-officedocument.presentationml.slideshow' => {"ppsx"}, 'application/vnd.ms-powerpoint.presentation.macroenabled.12' => {"pptm"}, 'application/vnd.ms-excel.addin.macroenabled.12' => {"xlam"}, 'application/vnd.ms-excel.sheet.binary.macroenabled.12' => {"xlsb"}, 'application/vnd.ms-excel.sheet.macroenabled.12' => {"xlsm"}, 'application/vnd.ms-excel.template.macroenabled.12' => {"xltm"}, 'application/vnd.ms-xpsdocument' => {"xps"}, 'image/vnd.dwg' => {"dwg"}, 'video/mp4' => {"mp4"}, 'audio/mpeg' => {"mp3"}, 'audio/x-aiff' => {"aiff"}, 'video/x-flv'=> {"flv"}, 'application/vnd.wordperfect' => {"wpd"}, 'image/vnd.adobe.photoshop' => {"psd"}, 'audio/x-wav' => {"wav"}}
-    cont = Enum.at(value1(String.split("#{contentType}",";")),0)
-    IO.puts cont
-    a = map['#{cont}']
-    si = tuple_size(a)
-    if si >= 2 do
-    elem(a,1)
-    else 
-      elem(a,0)
+    b = ""
+    IO.puts "content typ is " <> "#{contentType}"
+    if contentType == nil do
+      b
+    else
+      map = %{'audio/aac' => {"aac"}, 'text/html' => {"htm", "html"}, 'application/x-abiword' => {"abw"}, 'video/x-msvideo' => {"avi"}, 'application/vnd.amazon.ebook' => {"azw"}, 'application/octet-stream' => {"bin", "arc"}, 'image/bmp' => {"bmp"}, 'application/x-bzip' => {"bz"}, 'application/x-bzip2' => {"bz2"}, 'application/x-csh' => {"csh"}, 'text/css' => {"css"}, 'text/csv' => {"csv"}, 'application/msword' => {"doc"}, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => {"docx"}, 'application/vnd.ms-fontobject' => {"eot"}, 'application/epub+zip' => {"epub"}, 'application/ecmascript' => {"es"}, 'image/gif' => {"gif"}, 'image/x-icon' => {"ico"}, 'text/calendar' => {"ics"}, 'application/java-archive' => {"jar"}, 'image/jpeg' => {"jpeg", "jpg"}, 'application/javascript' => {"js"}, 'application/json' => {"json"}, 'audio/midi' => {"mid", "midi"}, 'audio/x-midi' => {"mid", "midi"}, 'video/mpeg' => {"mpeg"}, 'application/vnd.apple.installer+xml' => {"mpkg"}, 'application/vnd.oasis.opendocument.presentation' => {"odp"}, 'application/vnd.oasis.opendocument.spreadsheet' => {"ods"}, 'application/vnd.oasis.opendocument.text' => {"odt"}, 'audio/ogg' => {"oga"}, 'video/ogg' => {"ogv"}, 'application/ogg' => {"ogx"}, 'font/otf' => {"otf"}, 'image/png' => {"png"}, 'application/pdf' => {"pdf"}, 'application/vnd.ms-powerpoint' => {"ppt"}, 'application/vnd.openxmlformats-officedocument.presentationml.presentation' => {"pptx"}, 'application/x-rar-compressed' => {"rar"}, 'application/rtf' => {"rtf"}, 'application/x-sh' => {"sh"}, 'image/svg+xml' => {"svg"}, 'application/x-shockwave-flash' => {"swf"}, 'application/x-tar' => {"tar"}, 'image/tiff' => {"tif", "tiff"}, 'application/typescript' => {"ts"}, 'font/ttf' => {"ttf"}, 'text/plain' => {"txt"}, 'application/vnd.visio' => {"vsd"}, 'audios/wav' => {"wav"}, 'audio/webm' => {"weba"}, 'video/webm' => {"webm"}, 'image/webp' => {"webp"}, 'font/woff' => {"woff"}, 'font/woff2' => {"woff2"}, 'application/xhtml+xml' => {"xhtml"}, 'application/vnd.ms-excel' => {"xls"}, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => {"xlsx"}, 'application/vnd.openxmlformats-officedocument.spreadsheetml.template' => {"xltx"}, 'application/xml' => {"xml"}, 'application/vnd.mozilla.xul+xml' => {"xul"}, 'application/zip' => {"zip"}, 'video/3gpp' => {"3gp"}, 'video/3gpp2' => {"3g2"}, 'audio/3gpp' => {"3gp"}, 'audio/3gpp2' => {"3g2"}, 'application/x-7z-compressed' => {"7z"}, 'application/x-gzip' => {"gz"}, 'message/rfc822' => {"eml"}, 'application/vnd.ms-word.document.macroenabled.12' => {"docm"}, 'application/vnd.ms-word.template.macroenabled.12' => {"dotm"}, 'application/vnd.openxmlformats-officedocument.wordprocessingml.template' => {"dotx"}, 'application/vnd.ms-powerpoint.template.macroenabled.12' => {"potm"}, 'application/vnd.openxmlformats-officedocument.presentationml.template' => {"potx"}, 'application/vnd.ms-powerpoint.addin.macroenabled.12' => {"ppam"}, 'application/vnd.ms-powerpoint.slideshow.macroenabled.12' => {"ppsm"}, 'application/vnd.openxmlformats-officedocument.presentationml.slideshow' => {"ppsx"}, 'application/vnd.ms-powerpoint.presentation.macroenabled.12' => {"pptm"}, 'application/vnd.ms-excel.addin.macroenabled.12' => {"xlam"}, 'application/vnd.ms-excel.sheet.binary.macroenabled.12' => {"xlsb"}, 'application/vnd.ms-excel.sheet.macroenabled.12' => {"xlsm"}, 'application/vnd.ms-excel.template.macroenabled.12' => {"xltm"}, 'application/vnd.ms-xpsdocument' => {"xps"}, 'image/vnd.dwg' => {"dwg"}, 'video/mp4' => {"mp4"}, 'audio/mpeg' => {"mp3"}, 'audio/x-aiff' => {"aiff"}, 'video/x-flv'=> {"flv"}, 'application/vnd.wordperfect' => {"wpd"}, 'image/vnd.adobe.photoshop' => {"psd"}, 'audio/x-wav' => {"wav"}}
+      cont = Enum.at(value1(String.split("#{contentType}",";")),0)
+      a = map['#{cont}']
+      si = tuple_size(a)
+      if si >= 2 do
+        elem(a,1)
+      else 
+        if si == 1 do
+          elem(a,0)
+        else
+          b
+        end
+      end
     end
   end
   @spec value1(list) :: list
@@ -130,16 +137,14 @@ defmodule Crawler.Options do
     x
   end
   def indexingfunc(opts,url) do
-    IO.puts "start processing url " <> url
     Application.ensure_all_started(:inets)
 
     # We should start `ssl` application also,
     # if we want to make secure requests:
     Application.ensure_all_started(:ssl)
  # IO.puts "Url is2 "
-  
- 
-  {:ok, {{'HTTP/1.1', 200, 'OK'}, headers, _body1}} = :httpc.request(:get, {'#{url}', []}, [], [])
+  urlnew = String.replace("#{url}"," ","%20")
+  {:ok, {{'HTTP/1.1', 200, 'OK'}, headers, _body1}} = :httpc.request(:get, {'#{urlnew}', []}, [], [])
   #IO.puts "getting the url content type and last modified date"
 #IO.puts body1
 #IO.puts "header contenttype is"
@@ -147,7 +152,7 @@ if headers != nil do
 contentType = getContentType(headers,0)
 lastmodified = getLastmodified(headers,0)
 cont = getContent(contentType)
-IO.puts cont <> "in index func"
+
 #IO.puts contentType
 #IO.puts lastmodified
 #userAgent = opts.user_agent
@@ -158,12 +163,12 @@ type = 'application/json'
   #body = "{\"customerId\":\"" <> customerId <> "\",\"collectionNames\":[\"" <> colname <> "\"],\"config\":{}}"
   #body = "{\"customerID\":\"" <> opts.customerId <> "\",\"url\":\"" <> url <> "\",\"useragent\":\"searchblox\",\"description\":" <> opts.descrip <> "}"
   descrip = getdescrip(opts.descrip)
-  IO.puts "descrip is" <> descrip
-  body = "{\"customerID\":\"" <> opts.customerId <> "\",\"url\":\"" <> url <> "\",\"useragent\":\"" <> opts.user_agent <> "\",\"description\":\"" <> descrip <> "\",\"type\":\"" <> cont <> "\"}"
+  
+  bodypar1 = "{\"customerID\":\"" <> opts.customerId <> "\",\"url\":\"" <> urlnew <> "\",\"useragent\":\"" <> opts.user_agent <> "\",\"description\":\"" <> descrip <> "\"}"
+  body = checkContentType(cont,bodypar1,url)
   #body = "username=" <> authUsr <> "&password=" <> authPwd <> "&rememberMe=true"
   hTTPOptions = []
   options = []
- # IO.puts body
   #IO.puts "WWWW"
   authcode = 'Bearer #{opts.token}'
   #IO.puts authcode
@@ -215,14 +220,7 @@ type = 'application/json'
   #"\",\"category\":\"" <> category <>  
   #"\",\"size\":\"" <> size <> 
   #"\",\"meta\":" <> meta <> 
-  IO.puts cont
-  #IO.puts t1
-  IO.puts keyword
-  IO.puts size1
-  #IO.puts '#{c1}'
-  IO.puts title
-  IO.puts description
-  IO.puts canonicalTags
+  
   #,\"indexdate\":\"" <> "#{t1}" <> "\",\"creationdate\":\"" <> t1 <> "\"
 bodynew1 = "{\"customerId\":\"" <> opts.customerId <> "\",\"url\":\"" <> url <> "\",\"userId\":" <> "#{opts.userId}" <> ",\"collectionName\":\"" <> opts.collectionName <> "\",\"contenttype\":\"" <> cont <> "\",\"title\":\"" <> title <> "\",\"language\":\"en\",\"uid\":\"" <> url <> "\",\"size\":\"" <> size1 <> "\"}"
 bodynew2 = checkkeyword(keyword,bodynew1)
@@ -234,10 +232,10 @@ bodynew = checkcontent(c1,bodynew5)
   #IO.puts bodynew
 
   #{:ok, {{'HTTP/1.1', 200, 'OK'}, _headers3, body3}}= :httpc.request(:post, {'http://35.190.153.15:9000/indexmanager/api/v1/collection/index/doc/add', [{'Authorization', authcode}], type, bodynew}, hTTPOptions, options)
-  IO.puts "indexing url " <> url
+
   #IO.puts bodynew
-  {:ok, {{'HTTP/1.1',returnCode, _state}, _headers3, body3}}= :httpc.request(:post, {'http://35.190.153.15:9000/indexmanager/api/v1/collection/index/doc/add', [{'Authorization', authcode}], type, bodynew}, hTTPOptions, options)
-  IO.puts returnCode
+  {:ok, {{'HTTP/1.1',_returnCode, _state}, _headers3, body3}}= :httpc.request(:post, {'http://35.190.153.15:9000/indexmanager/api/v1/collection/index/doc/add', [{'Authorization', authcode}], type, bodynew}, hTTPOptions, options)
+
  IO.puts url <> " indexed"
  IO.puts body3
  #IO.puts url
@@ -247,6 +245,8 @@ end
  #   IO.puts "in get"
   #  IO.puts n
    # IO.puts elem(Enum.at(headers,n),0)
+   len1 = length(headers)
+   if n < len1 do
     if elem(Enum.at(headers,n),0) == 'content-type' do
     #  IO.puts "trueeeeeeeeeeee"
     contentType = elem(Enum.at(headers,n),1)
@@ -255,12 +255,32 @@ end
       getContentType(headers,n+1)
   end
 end
+end
 def checklastmodified(lastmodified,bodynew1) do
   if lastmodified == "" do
     bodynew1
   else
 bodynew = String.replace(bodynew1,"}",",\"lastmodified\":\"" <> "#{lastmodified}" <> "\"}")
 bodynew
+end
+end
+def checkContentType(content,bodynew1,url) do
+  if content != "" do
+    bodynew = String.replace(bodynew1,"}",",\"type\":\"" <> content <> "\"}")
+bodynew
+  else
+    type1 = String.split(url,"/")
+    s1 = length(type1)
+    cont = Enum.at(value1(type1),s1-1)
+    type2 = String.split(cont,".")
+    s2 = length(type2)
+    if s2 == 2 do
+      bodynew = String.replace(bodynew1,"}",",\"type\":\"" <> Enum.at(value1(type2),1) <> "\"}")
+bodynew
+    else
+      bodynew = String.replace(bodynew1,"}",",\"type\":\"html\"}")
+bodynew
+    end
 end
 
 end
@@ -292,20 +312,18 @@ end
 end
 def checkkeyword(keyword,bodynew1) do
   if keyword == nil do
-    IO.puts "in if"
+
     bodynew1
   else
-    IO.puts keyword <> "in else"
+
 bodynew = String.replace(bodynew1,"}",",\"keywords\":\"" <> keyword <> "\"}")
 bodynew
 end
 
 end
 def getLastmodified(headers,n) do
-  IO.puts "in get last"
-  IO.puts n
-  IO.puts elem(Enum.at(headers,n),0)
-  if n < 8 do
+  len1 = length(headers)
+  if n < len1 do
   if elem(Enum.at(headers,n),0) == 'last-modified' do
    # IO.puts "trueeeeeeeeeeee"
   contentType = elem(Enum.at(headers,n),1)

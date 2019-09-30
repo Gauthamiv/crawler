@@ -15,6 +15,8 @@ defmodule Crawler.Options do
   @urlusage    ""
   @customerId ""
   @userId ""
+  @parserUrl ""
+  @indexUrl ""
   @collectionName ""
   @timeout    5_000
   @user_agent "Crawler/#{Mixfile.project[:version]} (https://github.com/fredwu/crawler)"
@@ -55,6 +57,8 @@ defmodule Crawler.Options do
       urlusage: urlusage(),
       customerId: customerId(),
       userId: userId(),
+      parserUrl: parserUrl(),
+      indexUrl: indexUrl(),
       collectionName: collectionName(),
       timeout:    timeout(),
       user_agent: user_agent(),
@@ -172,7 +176,7 @@ type = 'application/json'
   #IO.puts "WWWW"
   authcode = 'Bearer #{opts.token}'
   #IO.puts authcode
-  {:ok, {{'HTTP/1.1', 200, 'OK'}, _headers2, body2}}= :httpc.request(:post, {'http://35.190.153.15:9000/parser/api/v1/parse', [{'Authorization', authcode}], type, body}, hTTPOptions, options)
+  {:ok, {{'HTTP/1.1', 200, 'OK'}, _headers2, body2}}= :httpc.request(:post, {'#{opts.parserUrl}', [{'Authorization', authcode}], type, body}, hTTPOptions, options)
   #IO.puts body2
   json2 = Poison.decode!(body2)
   #json = Poison.decode!(body1)
@@ -234,7 +238,7 @@ bodynew = checkcontent(c1,bodynew5)
   #{:ok, {{'HTTP/1.1', 200, 'OK'}, _headers3, body3}}= :httpc.request(:post, {'http://35.190.153.15:9000/indexmanager/api/v1/collection/index/doc/add', [{'Authorization', authcode}], type, bodynew}, hTTPOptions, options)
 
   #IO.puts bodynew
-  {:ok, {{'HTTP/1.1',_returnCode, _state}, _headers3, body3}}= :httpc.request(:post, {'http://35.190.153.15:9000/indexmanager/api/v1/collection/index/doc/add', [{'Authorization', authcode}], type, bodynew}, hTTPOptions, options)
+  {:ok, {{'HTTP/1.1',_returnCode, _state}, _headers3, body3}}= :httpc.request(:post, {'#{opts.indexUrl}', [{'Authorization', authcode}], type, bodynew}, hTTPOptions, options)
 
  IO.puts url <> " indexed"
  IO.puts body3
@@ -345,6 +349,8 @@ end
   defp urlusage,    do: Application.get_env(:crawler, :urlusage, @urlusage)
   defp customerId, do: Application.get_env(:crawler, :customerId, @customerId)
   defp userId,     do: Application.get_env(:crawler, :userId, @userId)
+  defp parserUrl,     do: Application.get_env(:crawler, :parserUrl, @parserUrl)
+  defp indexUrl,     do: Application.get_env(:crawler, :indexUrl, @indexUrl)
   defp collectionName, do: Application.get_env(:crawler, :collectionName, @collectionName)
   defp timeout,    do: Application.get_env(:crawler, :timeout,    @timeout)
   defp user_agent, do: Application.get_env(:crawler, :user_agent, @user_agent)

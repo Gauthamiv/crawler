@@ -193,6 +193,7 @@ defmodule Crawler.Options do
       lastmodified = getLastmodified(headers,0)
       cont = getContent(contentType)
       contnew = getContentNew(contentType)
+      IO.puts opts.allowformats
       if checkFormat(opts,contnew) do
         IO.puts "DDDDDDDDDDD"
         #IO.puts contentType

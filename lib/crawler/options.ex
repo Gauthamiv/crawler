@@ -183,16 +183,18 @@ defmodule Crawler.Options do
     IO.puts "AAAAAAAAAAAAAAAAA"
     {:ok, {{'HTTP/1.1', returnCodep, _statep}, headers, _body1}} = :httpc.request(:get, {'#{urlnew}', []}, [], [])
     if returnCodep == 200 do
-      
+      IO.puts "BBBBBBBBBBB"
      #IO.puts "getting the url content type and last modified date"
     #IO.puts body1
     #IO.puts "header contenttype is"
     if headers != nil do
+      IO.puts "CCCCCCCCCCCCC"
       contentType = getContentType(headers,0)
       lastmodified = getLastmodified(headers,0)
       cont = getContent(contentType)
       contnew = getContentNew(contentType)
       if checkFormat(opts,contnew) do
+        IO.puts "DDDDDDDDDDD"
         #IO.puts contentType
         #IO.puts lastmodified
         #userAgent = opts.user_agent
@@ -214,7 +216,7 @@ defmodule Crawler.Options do
         #IO.puts authcode
         {:ok, {{'HTTP/1.1', 200, 'OK'}, _headers2, body2}}= :httpc.request(:post, {'#{opts.parserUrl}', [{'Authorization', authcode}], type, body}, hTTPOptions, options)
         #IO.puts body2
-        
+        IO.puts "EEEEEEEEEEEEEEEEEE"
         json2 = Poison.decode!(body2)
         #json = Poison.decode!(body1)
         title = json2["title"]

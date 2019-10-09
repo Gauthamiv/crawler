@@ -42,7 +42,13 @@ defmodule Crawler.Fetcher.UrlFilter do
       false
     end
  end
-
+ def print_multiple_timesdisallow(n,opts,url) when n <= 0 do
+  if  String.starts_with?(url,value2(Enum.at(value1(String.split(opts.disallowpaths,",")),n-1))) do
+  false
+  else
+    true
+  end
+end
  def print_multiple_times(n,opts,url) do
     if String.starts_with?(url,value2(Enum.at(value1(String.split(opts.allowpaths,",")),n-1))) do
       #IO.puts "true in print func"  
@@ -52,6 +58,20 @@ defmodule Crawler.Fetcher.UrlFilter do
        print_multiple_times(n - 1,opts,url)
     end
  end
+ def print_multiple_timesdisallow(n,opts,url) do
+  #IO.puts value2(Enum.at(value1(String.split(opts.disallowpaths,",")),n-1))
+  if n > 0 && value2(Enum.at(value1(String.split(opts.disallowpaths,",")),n-1)) != "" do
+  if String.starts_with?(url,value2(Enum.at(value1(String.split(opts.disallowpaths,",")),n-1))) do
+  false
+    else
+     print_multiple_timesdisallow(n - 1,opts,url)
+  end
+else
+  true
+
+
+end
+end
   @spec value1(list) :: list
   def value1(x) do
     x
@@ -61,19 +81,25 @@ defmodule Crawler.Fetcher.UrlFilter do
     x
   end
   def filter(url, opts) do
-    
+    if print_multiple_timesdisallow(Kernel.length(value1(String.split("#{opts.disallowpaths}",","))),opts,url) do
+      # IO.puts "condition is true inside filter returing true"
+      if print_multiple_times(Kernel.length(value1(String.split("#{opts.allowpaths}",","))),opts,url) do
+      # IO.puts "condition is true inside filter returing true"
+      #IO.puts "yes " <> url
+      Crawler.Options.indexingfunc(opts,url)
+     {:ok, true}
+     else 
+       #IO.puts "no " <> url
+       #Crawler.Options.indexingfunc(opts,url)
+      # IO.puts "condition is false inside filter returingin false"
+     {:ok, false}
+     end
+     else 
+       #Crawler.Options.indexingfunc(opts,url)
+      # IO.puts "condition is false inside filter returingin false"
+     {:ok, false}
+     end
+   end 
     #IO.puts "inside filter func"
-   if print_multiple_times(Kernel.length(value1(String.split("#{opts.allowpaths}",","))),opts,url) do
-     # IO.puts "condition is true inside filter returing true"
-     IO.puts "yes " <> url
-     Crawler.Options.indexingfunc(opts,url)
-    {:ok, true}
-    else 
-      #IO.puts "no " <> url
-      #Crawler.Options.indexingfunc(opts,url)
-     # IO.puts "condition is false inside filter returingin false"
-    {:ok, false}
-    end
-  end
   #def filter(_, _), do: {:ok, false}
 end

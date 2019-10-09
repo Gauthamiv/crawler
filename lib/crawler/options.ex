@@ -293,22 +293,30 @@ defmodule Crawler.Options do
   end
   def checkFormat(opts,cont) do
     n = Kernel.length(value1(String.split("#{opts.allowformats}",",")))
+    IO.puts n
     if n > 0 && value2(Enum.at(value1(String.split(opts.allowformats,",")),n-1)) != "" do
+      IO.puts "KKKKKK"
       a = checkNew(Kernel.length(value1(String.split("#{opts.allowformats}",","))),tuple_size(cont),opts,cont,tuple_size(cont))
       a
     else
+      IO.puts "LLLLLLLL"
       true
     end
   end
   def checkNew(m,n,opts,cont,l) do
+    IO.puts "PPPPPPPP"
     a = value2(Enum.at(value1(String.split(opts.allowformats,",")),m-1))
     b = elem(cont,n-1)
     if a == b do
+      IO.puts "UUUUUU"
       true
     else
+      IO.puts "TTTTTTTTTT"
       if n-1 == 0 do
+        IO.puts "YYYYYYY"
         checkNew(m-1,l,opts,cont,l)
       else
+        IO.puts "VVVVVVVVVVVVVVVVVVVVVVV"
         checkNew(m,n-1,opts,cont,l)
       end
     end

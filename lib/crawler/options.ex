@@ -180,22 +180,18 @@ defmodule Crawler.Options do
     Application.ensure_all_started(:ssl)
     # IO.puts "Url is2 "
     urlnew = String.replace("#{url}"," ","%20")
-    IO.puts "AAAAAAAAAAAAAAAAA"
     {:ok, {{'HTTP/1.1', returnCodep, _statep}, headers, _body1}} = :httpc.request(:get, {'#{urlnew}', []}, [], [])
     if returnCodep == 200 do
-      IO.puts "BBBBBBBBBBB"
+      
      #IO.puts "getting the url content type and last modified date"
     #IO.puts body1
     #IO.puts "header contenttype is"
     if headers != nil do
-      IO.puts "CCCCCCCCCCCCC"
       contentType = getContentType(headers,0)
       lastmodified = getLastmodified(headers,0)
       cont = getContent(contentType)
       contnew = getContentNew(contentType)
-      IO.puts opts.allowformats
       if checkFormat(opts,contnew) do
-        IO.puts "DDDDDDDDDDD"
         #IO.puts contentType
         #IO.puts lastmodified
         #userAgent = opts.user_agent
@@ -217,7 +213,7 @@ defmodule Crawler.Options do
         #IO.puts authcode
         {:ok, {{'HTTP/1.1', 200, 'OK'}, _headers2, body2}}= :httpc.request(:post, {'#{opts.parserUrl}', [{'Authorization', authcode}], type, body}, hTTPOptions, options)
         #IO.puts body2
-        IO.puts "EEEEEEEEEEEEEEEEEE"
+        
         json2 = Poison.decode!(body2)
         #json = Poison.decode!(body1)
         title = json2["title"]
@@ -293,30 +289,22 @@ defmodule Crawler.Options do
   end
   def checkFormat(opts,cont) do
     n = Kernel.length(value1(String.split("#{opts.allowformats}",",")))
-    IO.puts n
     if n > 0 && value2(Enum.at(value1(String.split(opts.allowformats,",")),n-1)) != "" do
-      IO.puts "KKKKKK"
       a = checkNew(Kernel.length(value1(String.split("#{opts.allowformats}",","))),tuple_size(cont),opts,cont,tuple_size(cont))
       a
     else
-      IO.puts "LLLLLLLL"
       true
     end
   end
   def checkNew(m,n,opts,cont,l) do
-    IO.puts "PPPPPPPP"
     a = value2(Enum.at(value1(String.split(opts.allowformats,",")),m-1))
     b = elem(cont,n-1)
     if a == b do
-      IO.puts "UUUUUU"
       true
     else
-      IO.puts "TTTTTTTTTT"
       if n-1 == 0 do
-        IO.puts "YYYYYYY"
         checkNew(m-1,l,opts,cont,l)
       else
-        IO.puts "VVVVVVVVVVVVVVVVVVVVVVV"
         checkNew(m,n-1,opts,cont,l)
       end
     end

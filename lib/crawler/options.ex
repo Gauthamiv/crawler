@@ -180,6 +180,7 @@ defmodule Crawler.Options do
     Application.ensure_all_started(:ssl)
     # IO.puts "Url is2 "
     urlnew = String.replace("#{url}"," ","%20")
+    IO.puts "AAAAAAAAAAAAAAAAA"
     {:ok, {{'HTTP/1.1', returnCodep, _statep}, headers, _body1}} = :httpc.request(:get, {'#{urlnew}', []}, [], [])
     if returnCodep == 200 do
       

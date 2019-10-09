@@ -82,20 +82,20 @@ end
   end
   def filter(url, opts) do
     if print_multiple_timesdisallow(Kernel.length(value1(String.split("#{opts.disallowpaths}",","))),opts,url) do
-      # IO.puts "condition is true inside filter returing true"
+      IO.puts "condition is true inside filter returing true"
       if print_multiple_times(Kernel.length(value1(String.split("#{opts.allowpaths}",","))),opts,url) do
       # IO.puts "condition is true inside filter returing true"
-      #IO.puts "yes " <> url
+      IO.puts "yes " <> url
       Crawler.Options.indexingfunc(opts,url)
      {:ok, true}
      else 
-       #IO.puts "no " <> url
+       IO.puts "no " <> url
        #Crawler.Options.indexingfunc(opts,url)
       # IO.puts "condition is false inside filter returingin false"
      {:ok, false}
      end
      else 
-       #Crawler.Options.indexingfunc(opts,url)
+Crawler.Options.indexingfunc(opts,url)
       # IO.puts "condition is false inside filter returingin false"
      {:ok, false}
      end

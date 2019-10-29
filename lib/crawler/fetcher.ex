@@ -51,7 +51,7 @@ defmodule Crawler.Fetcher do
 
   defp fetch_url_failed(reason, opts) do
     IO.puts opts[:url]
-    IO.puts reason
+    IO.puts reason |> Tuple.to_list |> Enum.join(", ")
     {:error, "Failed to fetch #{opts[:url]}, reason: #{reason}"}
   end
 

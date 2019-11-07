@@ -5,7 +5,7 @@ defmodule Crawler.Mixfile do
     [
       app:               :crawler,
       version:           "1.1.0",
-      elixir:            "~> 1.5",
+      elixir:            "~> 1.9.1",
       package:           package(),
       name:              "Crawler",
       description:       "A high performance web crawler in Elixir.",

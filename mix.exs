@@ -5,7 +5,7 @@ defmodule Crawler.Mixfile do
     [
       app:               :crawler,
       version:           "1.1.0",
-      elixir:            "~> 1.9.1",
+      elixir:            "~> 1.5",
       package:           package(),
       name:              "Crawler",
       description:       "A high performance web crawler in Elixir.",
@@ -29,7 +29,7 @@ defmodule Crawler.Mixfile do
   defp deps do
     [
       {:httpoison,   "~> 1.5"},
-      {:floki,       "~> 0.23.0"},
+      {:floki,       "~> 0.18"},
       {:opq,         "~> 3.0"},
       {:retry,       "~> 0.10"},
       {:plug_cowboy, "~> 1.0",   only: :test},

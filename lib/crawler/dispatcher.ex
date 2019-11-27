@@ -13,7 +13,7 @@ defmodule Crawler.Dispatcher do
   """
   def dispatch(request, opts) do
     IO.puts "in dispatch func for url " <> opts[:url]
-    deleteRegistry(opts[:url])
+    #deleteRegistry(opts[:url])
     case request do
       {_, _link, _, url} -> 
         Crawler.crawl(url, opts)

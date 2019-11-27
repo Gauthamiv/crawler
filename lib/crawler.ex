@@ -31,7 +31,13 @@ defmodule Crawler do
     |> Options.assign_url(url)
     |> QueueHandler.enqueue()
   end
-
+def crawlnew(url,opts \\ []) do
+  IO.puts "IN crawnew func for url " <> url
+  b = Registry.count(Store.DB)
+  IO.puts "The registry count is"
+  IO.puts b
+  crawl(url,opts)
+end
   @doc """
   Stops the crawler.
   """

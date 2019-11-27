@@ -12,7 +12,7 @@ defmodule Crawler.Dispatcher do
   And issues `Crawler.crawl/2` to initiate the crawl.
   """
   def dispatch(request, opts) do
-    IO.puts "in dispatch func for url " <> opts[:url]
+    #IO.puts "in dispatch func for url " <> opts[:url]
     #deleteRegistry(opts[:url])
     case request do
       {_, _link, _, url} -> 
@@ -22,13 +22,7 @@ defmodule Crawler.Dispatcher do
     end
   end
   def deleteRegistry(url) do
-    IO.puts "In delete registry func"
-    abc = Registry.unregister(Crawler.Store.DB,url)
-    IO.puts "unregistering url " <> url
-    IO.puts abc
-    a = Registry.lookup(Crawler.Store.DB,url)
-    IO.puts "Looking up for unregistered url" <> url
-    IO.puts a
-    #IO.puts b <> "BBBB"
+    :ok = Registry.unregister(Crawler.Store.DB,url)
+
   end
 end

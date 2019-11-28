@@ -13,18 +13,19 @@ defmodule Crawler.Dispatcher do
   """
   def dispatch(request, opts) do
     #IO.puts "in dispatch func for url " <> opts[:url]
-    _pid = spawn fn ->
-      deleteRegistry(opts[:url])
-    end
+    #_pid = spawn fn ->
+     # deleteRegistry(opts[:url])
+    #end
     case request do
       {_, _link, _, url} -> 
         Crawler.crawl(url, opts)
       {_, url}           -> 
         Crawler.crawl(url, opts)
     end
+	deleteRegistry(opts[:url])
   end
   def deleteRegistry(url) do
-Process.sleep(90)
+#Process.sleep(90)
     abc = Registry.unregister(Crawler.Store.DB,url)
     IO.puts "unregistering url " <> url
     IO.puts abc

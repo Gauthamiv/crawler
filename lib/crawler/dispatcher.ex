@@ -30,9 +30,13 @@ defmodule Crawler.Dispatcher do
     abc = Registry.unregister(Crawler.Store.DB,url)
     IO.puts "unregistering url " <> url
     IO.puts abc
-    a = Registry.lookup(Crawler.Store.DB,url)
-    IO.puts "Looking up for unregistered url" <> url
-    IO.puts a
-    #IO.puts b <> "BBBB"
+    # a = Registry.lookup(Crawler.Store.DB,url)
+    # IO.puts "Looking up for unregistered url" <> url
+    # IO.puts a
+    # b = Kernel.length(a)
+    # IO.puts b
+    # if b > 0 do
+    #    deleteRegistry(url)
+    #  end
   end
 end

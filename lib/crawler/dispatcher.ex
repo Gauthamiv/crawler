@@ -26,7 +26,7 @@ defmodule Crawler.Dispatcher do
     #deleteRegistry(opts[:url])
   end
   def deleteRegistry(url) do
-    Process.sleep(1)
+    #Process.sleep(1)
     abc = Registry.unregister(Crawler.Store.DB,url)
     #IO.puts "unregistering url " <> url
     #IO.puts abc

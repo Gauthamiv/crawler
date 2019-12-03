@@ -23,6 +23,8 @@ defmodule Crawler.Fetcher do
   end
 
   defp fetch_url(opts) do
+    IO.puts "In fetch_url func for url " <> opts[:url]
+    IO.puts Requester.make(opts)
     case Requester.make(opts) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body, headers: headers}} ->
         fetch_url_200(body, headers, opts)

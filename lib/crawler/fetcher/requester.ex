@@ -19,7 +19,8 @@ defmodule Crawler.Fetcher.Requester do
       {:error, %HTTPoison.Error{id: nil, reason: :nxdomain}}
   """
   def make(opts) do
-    HTTP.get(opts[:url], fetch_headers(opts), fetch_opts(opts))
+    #HTTP.get(opts[:url], fetch_headers(opts), fetch_opts(opts))
+    HTTP.get(opts[:url], fetch_headers(opts), [], [ ssl: [{:versions, [:'tlsv1.2']}] ])
   end
 
   defp fetch_headers(opts) do

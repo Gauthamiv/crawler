@@ -20,7 +20,7 @@ defmodule Crawler.Fetcher.Requester do
   """
   def make(opts) do
     #HTTP.get(opts[:url], fetch_headers(opts), fetch_opts(opts))
-    HTTP.get(opts[:url], fetch_headers(opts), [], [ ssl: [{:versions, [:'tlsv1.2']}] ])
+    HTTP.get(opts[:url], fetch_headers(opts), [ ssl: [{:versions, [:'tlsv1.2']}] ])
   end
 
   defp fetch_headers(opts) do

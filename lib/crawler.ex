@@ -25,7 +25,6 @@ defmodule Crawler do
   `Crawler.crawl_now/1`.
   """
   def crawl(url, opts \\ []) do
-    IO.puts "Crawling started from package"
     opts
     |> Enum.into(%{})
     |> Options.assign_defaults()

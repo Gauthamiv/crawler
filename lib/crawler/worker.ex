@@ -43,7 +43,7 @@ defmodule Crawler.Worker do
 
   defp mark_processed({:ok, %Page{url: url}}) do
    # IO.puts "in mark_processed func for url" <> url
-    Crawler.Dispatcher.deleteRegistry(url)
+    #Crawler.Dispatcher.deleteRegistry(url)
     Store.processed(url)
   end
   defp mark_processed(_),                      do: nil

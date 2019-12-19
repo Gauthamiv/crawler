@@ -33,6 +33,8 @@ defmodule Crawler.Worker do
     |> state[:parser].parse()
     |> mark_processed()
 
+
+    deleteRegistrynew(state)
     {:noreply, state}
   end
 
@@ -42,9 +44,14 @@ defmodule Crawler.Worker do
   end
 
   defp mark_processed({:ok, %Page{url: url}}) do
-   # IO.puts "in mark_processed func for url" <> url
-    #Crawler.Dispatcher.deleteRegistry(url)
-    Store.processed(url)
+  #deleteRegistry(url)
+  Store.processed(url)
   end
   defp mark_processed(_),                      do: nil
+  def deleteRegistry(url) do
+    Registry.unregister(Crawler.Store.DB,url)
+  end
+  def deleteRegistrynew({:ok, %Page{url: url}}) do
+    Registry.unregister(Crawler.Store.DB,url)
+  end
 end

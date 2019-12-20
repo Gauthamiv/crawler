@@ -46,8 +46,6 @@ defmodule Crawler.Fetcher do
   end
 
   defp fetch_url_non_200(status_code, opts) do
-    IO.puts opts[:url]
-    IO.puts status_code
     {:error, "Failed to fetch #{opts[:url]}, status code: #{status_code}"}
   end
 
